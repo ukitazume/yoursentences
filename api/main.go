@@ -18,10 +18,14 @@ func main() {
 		})
 	})
 
+	router.Run(":" + getPort())
+}
+
+func getPort() string {
 	listenPort := "8080"
 	envPort := os.Getenv("PORT")
 	if envPort != "" {
 		listenPort = envPort
 	}
-	router.Run(":" + listenPort)
+	return listenPort
 }
