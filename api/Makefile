@@ -11,3 +11,7 @@ run: builddocker
 	docker run \
 		-p 8080:8080 ukitazume/yoursentences
 
+serve:
+	go get github.com/codegangsta/gin
+	gin -a 8080 -p 8081
+
