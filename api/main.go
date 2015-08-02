@@ -1,5 +1,7 @@
 package main
 
+import "os"
+
 import "github.com/gin-gonic/gin"
 
 func main() {
@@ -15,5 +17,11 @@ func main() {
 			"message": "message 1",
 		})
 	})
-	router.Run(":8080")
+
+	listenPort := "8080"
+	envPort := os.Getenv("PORT")
+	if envPort != "" {
+		listenPort = envPort
+	}
+	router.Run(":" + listenPort)
 }
