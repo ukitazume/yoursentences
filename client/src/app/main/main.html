@@ -1,0 +1,27 @@
+<div layout="vertical" layout-fill>
+
+  <md-content>
+    <header>
+      <acme-navbar creationDate="main.creationDate" />
+    </header>
+
+    <section class="jumbotron">
+      <h1>Your Sentences</h1>
+      <md-button>Login</md-button>
+    </section>
+
+    <div class="techs" layout-align="center">
+      <md-card ng-repeat="awesomeThing in main.awesomeThings | orderBy:'rank'">
+        <div class="thumbnail">
+          <img class="pull-right" ng-src="assets/images/{{ awesomeThing.logo }}" alt="{{ awesomeThing.title }}">
+          <div class="caption">
+            <h3>{{ awesomeThing.title }}</h3>
+            <p>{{ awesomeThing.description }}</p>
+            <p><a ng-href="{{ awesomeThing.url }}">{{ awesomeThing.url }}</a></p>
+          </div>
+        </div>
+      </md-card>
+    </div>
+  </md-content>
+
+</div>
