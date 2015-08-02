@@ -6,9 +6,12 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec) {
+  function MainController($timeout, webDevTec, testData) {
     var vm = this;
 
+    testData.get(function(response){
+      vm.message = response.data.message;
+    });
     vm.awesomeThings = [];
     vm.classAnimation = '';
     vm.creationDate = 1438490718873;
