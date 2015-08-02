@@ -11,7 +11,8 @@ func main() {
 		c.String(200, "ok")
 	})
 
-	router.GET("/test.json", func(c *gin.Context) {
+	router.GET("/test", func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
 		c.JSON(200, gin.H{
 			"id":      2,
 			"message": "message 1",
