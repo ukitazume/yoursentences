@@ -8,7 +8,10 @@
 
 var gulp = require('gulp');
 var wrench = require('wrench');
-var replace = require('gulp-replace');
+var gulpNgConfig = require('gulp-ng-config');
+
+var env = process.env.NODE_ENV || 'development'
+console.log(env);
 
 /**
  *  This will load all js or coffee files in the gulp directory
@@ -28,3 +31,10 @@ wrench.readdirSyncRecursive('./gulp').filter(function(file) {
 gulp.task('default', ['clean'], function () {
   gulp.start('build');
 });
+
+gulp.task('envconfig', function(){
+  gulp.src('env.config.json')
+  .pipe(gulpNgConfig('env.config', {environment: env}))
+  .pipe(gulp.dest('src/app/'))
+});
+
