@@ -11,8 +11,8 @@ EnvironmentFile=/etc/environment
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill iptables
 ExecStartPre=-/usr/bin/docker rm iptables
-ExecStartPre=/usr/bin/docker pull ukitazume/iptables
-ExecStart=/usr/bin/docker run --name iptables -v /var/lib/iptables:/var/lib/iptables -e COREOS_PRIVATE_IPV4=${COREOS_PRIVATE_IPV4} ukitazume/iptables
+ExecStartPre=/usr/bin/docker pull quay.io/ukitazume/iptableswriter
+ExecStart=/usr/bin/docker run --name iptables -v /var/lib/iptables:/var/lib/iptables -e COREOS_PRIVATE_IPV4=${COREOS_PRIVATE_IPV4} quay.io/ukitazume/iptableswriter
 ExecStartPost=/usr/bin/bash -c '\
   sudo /usr/sbin/iptables -F Firewall-INPUT && \
   sudo /sbin/iptables-restore --noflush /var/lib/iptables/rules-save'
