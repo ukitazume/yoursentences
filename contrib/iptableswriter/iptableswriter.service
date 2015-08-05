@@ -1,0 +1,24 @@
+[Unit]
+Description=Write iptables rule file
+After=fleet.service
+After=docker.service
+Requires=docker.service
+Requires=fleet.service
+Requires=iptables-restore.service
+
+[Service]
+EnvironmentFile=/etc/environment
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill iptables
+ExecStartPre=-/usr/bin/docker rm iptables
+ExecStartPre=/usr/bin/docker pull ukitazume/iptables
+ExecStart=/usr/bin/docker run --name iptables -v /var/lib/iptables:/var/lib/iptables -e COREOS_PRIVATE_IPV4=${COREOS_PRIVATE_IPV4} ukitazume/iptables
+ExecStartPost=/usr/bin/bash -c '\
+  sudo /usr/sbin/iptables -F Firewall-INPUT && \
+  sudo /sbin/iptables-restore --noflush /var/lib/iptables/rules-save'
+ExecStop=/usr/bin/docker stop iptables
+
+[X-Fleet]
+Global=true
+
+
